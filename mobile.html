@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Web инструменты для изучения иврита</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .top-frame, .bottom-frame {
+            flex: 1;
+            border: none;
+        }
+
+        .web-content {
+            flex: 1;
+            border: none;
+        }
+
+        #urlInput {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 400%;
+        }
+
+        #openInTopButton, #openPopupButton {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 400%;
+        }
+
+        #bottomFrame {
+            width: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-frame">
+        <form id="topForm">
+            <input type="text" id="urlInput" placeholder="Введите ссылку. Например на Google документ">
+            <button type="button" id="openInTopButton">Открыть ссылку/button>
+        </form>
+        <iframe class="web-content" id="topFrame" src="about:blank"></iframe>
+    </div>
+    <div class="bottom-frame">
+        <form id="popupForm">
+            <!-- Removed input field -->
+        </form>
+        <button type="button" id="openPopupButton">Таблицы спряжения слов иврита</button>
+        <iframe class="web-content" id="bottomFrame" src="https://www.slovar.co.il/translate.php"></iframe>
+    </div>
+
+    <script>
+        const topForm = document.getElementById('topForm');
+        const urlInput = document.getElementById('urlInput');
+        const openInTopButton = document.getElementById('openInTopButton');
+        const topFrame = document.getElementById('topFrame');
+        const popupForm = document.getElementById('popupForm');
+        const openPopupButton = document.getElementById('openPopupButton');
+        const bottomFrame = document.getElementById('bottomFrame');
+
+        openInTopButton.addEventListener('click', function() {
+            const url = urlInput.value;
+            if (url) {
+                topFrame.src = url;
+            }
+        });
+
+        openPopupButton.addEventListener('click', function() {
+            const popupWidth = document.querySelector('.bottom-frame').offsetWidth;
+            const popupHeight = document.querySelector('.bottom-frame').offsetHeight;
+            const popupLeft = window.screenX + window.innerWidth - popupWidth;
+            const popupTop = window.screenY;
+            const popup = window.open('https://www.pealim.com/ru/', '_blank', `width=${popupWidth},height=${popupHeight},left=${popupLeft},top=${popupTop}`);
+            if (!popup || popup.closed || typeof popup.closed === 'undefined') {
+                alert('Popup window was blocked. Please allow popups and try again.');
+            }
+        });
+    </script>
+</body>
+</html>
