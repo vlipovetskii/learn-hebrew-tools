@@ -65,7 +65,13 @@
         <iframe class="web-content" id="leftFrame" src="about:blank"></iframe>
     </div>
     <div class="right-frame">
-        <button type="button" id="openPopupButton">Таблицы спряжения слов иврита</button>
+    	<div>
+            <button type="button" id="openPopupButton">🧾Таблицы спряжения для слов на 🇮🇱иврите</button>
+            <button type="button" id="openAudioPlayer">🎵Аудио плеер</button>
+            <button type="button" id="openIris">🇮🇱Словарь Iris</button>
+            <button type="button" id="openLinkFromleftFrame">Открыть ссылку 👈с левой стороны</button>
+    	</div>
+
         <iframe class="web-content" id="rightFrame" src="https://www.slovar.co.il/translate.php"></iframe>
     </div>
 
@@ -76,11 +82,29 @@
         const leftFrame = document.getElementById('leftFrame');
         const openPopupButton = document.getElementById('openPopupButton');
         const rightFrame = document.getElementById('rightFrame');
+        const openAudioPlayerButton = document.getElementById('openAudioPlayer');
+        const openIrisButton = document.getElementById('openIris');
+        const openLinkFromleftFrameButton = document.getElementById('openLinkFromleftFrame');
 
         openInLeftButton.addEventListener('click', function() {
             const url = urlInput.value;
             if (url) {
                 leftFrame.src = url;
+            }
+        });
+
+        openAudioPlayerButton.addEventListener('click', function() {
+			rightFrame.src = 'https://29a.ch/timestretch';
+        });
+
+        openIrisButton.addEventListener('click', function() {
+			rightFrame.src = 'https://www.slovar.co.il/translate.php';
+        });
+
+        openLinkFromleftFrameButton.addEventListener('click', function() {
+            const url = urlInput.value;
+            if (url) {
+                rightFrame.src = url;
             }
         });
 
