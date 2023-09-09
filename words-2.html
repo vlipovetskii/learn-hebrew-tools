@@ -25,7 +25,7 @@
 
         // Sort the dataArray by linkText property
         dataArray.sort(function (a, b) {
-            return a.linkText.localeCompare(b.lt);
+            return a.lt.localeCompare(b.lt);
         });
 
         // Create a table and populate it with data
@@ -36,9 +36,9 @@
             // Create header row
             var headerRow = document.createElement('tr');
             var leftHeaderCell = document.createElement('th');
-            leftHeaderCell.textContent = "Left Column";
+            leftHeaderCell.textContent = "מילה";
             var rightHeaderCell = document.createElement('th');
-            rightHeaderCell.textContent = "Right Column";
+            rightHeaderCell.textContent = "תרגום";
             headerRow.appendChild(leftHeaderCell);
             headerRow.appendChild(rightHeaderCell);
             table.appendChild(headerRow);
