@@ -18,14 +18,14 @@
     <script>
         // Sample data array with URLs and translations
         var dataArray = [
-            { linkText: "לבחור ב", url: "https://www.pealim.com/ru/dict/206-livchor/", translation: "1. выбирать 2. избирать" },
-            { linkText: "הוראה", url: "https://www.pealim.com/ru/dict/3924-horaa/", translation: "1. преподавание 2. указ, распоряжение 3. смысл, значение" },
-            { linkText: "שינוי", url: "https://www.pealim.com/ru/dict/6001-shinuy/", translation: "изменение, перемена" },
+            { lt: "לבחור ב", url: "206-livchor/", trn: "1. выбирать 2. избирать" },
+            { lt: "הוראה", url: "3924-horaa/", trn: "1. преподавание 2. указ, распоряжение 3. смысл, значение" },
+            { lt: "שינוי", url: "6001-shinuy/", trn: "изменение, перемена" },
         ];
 
         // Sort the dataArray by linkText property
         dataArray.sort(function (a, b) {
-            return a.linkText.localeCompare(b.linkText);
+            return a.linkText.localeCompare(b.lt);
         });
 
         // Create a table and populate it with data
@@ -52,12 +52,12 @@
 
                 // Populate left cell with a link
                 var link = document.createElement('a');
-                link.href = data.url;
-                link.textContent = data.linkText;
+                link.href = "https://www.pealim.com/ru/dict/" + data.url;
+                link.textContent = data.lt;
                 leftCell.appendChild(link);
 
                 // Apply the dark green text class to the right cell
-                rightCell.textContent = data.translation;
+                rightCell.textContent = data.trn;
                 rightCell.classList.add('dark-green-text');
 
                 row.appendChild(leftCell);
