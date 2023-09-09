@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Table</title>
+    <style>
+        .dark-green-text {
+            color: darkgreen;
+        }
+    </style>
+</head>
+<body>
+    <div id="table-container">
+        <!-- Table will be generated here -->
+    </div>
+
+    <script>
+        // Sample data array with URLs and translations
+        var dataArray = [
+            { linkText: "Link 3", url: "https://example3.com", translation: "Text 3 (Dark Green)" },
+            { linkText: "Link 1", url: "https://example.com", translation: "Text 1 (Dark Green)" },
+            { linkText: "Link 2", url: "https://example2.com", translation: "Text 2 (Dark Green)" },
+        ];
+
+        // Sort the dataArray by linkText property
+        dataArray.sort(function (a, b) {
+            return a.linkText.localeCompare(b.linkText);
+        });
+
+        // Create a table and populate it with data
+        function createTable(dataArray) {
+            var tableContainer = document.getElementById('table-container');
+            var table = document.createElement('table');
+
+            // Create header row
+            var headerRow = document.createElement('tr');
+            var leftHeaderCell = document.createElement('th');
+            leftHeaderCell.textContent = "Left Column";
+            var rightHeaderCell = document.createElement('th');
+            rightHeaderCell.textContent = "Right Column";
+            headerRow.appendChild(leftHeaderCell);
+            headerRow.appendChild(rightHeaderCell);
+            table.appendChild(headerRow);
+
+            // Populate the table with data
+            for (var i = 0; i < dataArray.length; i++) {
+                var data = dataArray[i];
+                var row = document.createElement('tr');
+                var leftCell = document.createElement('td');
+                var rightCell = document.createElement('td');
+
+                // Populate left cell with a link
+                var link = document.createElement('a');
+                link.href = data.url;
+                link.textContent = data.linkText;
+                leftCell.appendChild(link);
+
+                // Apply the dark green text class to the right cell
+                rightCell.textContent = data.translation;
+                rightCell.classList.add('dark-green-text');
+
+                row.appendChild(leftCell);
+                row.appendChild(rightCell);
+                table.appendChild(row);
+            }
+
+            tableContainer.appendChild(table);
+        }
+
+        // Call the createTable function with the sorted data array
+        createTable(dataArray);
+    </script>
+</body>
+</html>
