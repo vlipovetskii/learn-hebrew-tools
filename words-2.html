@@ -5,9 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>מילים</title>
     <style>
-        .dark-green-text {
+
+        /* Set font size to % for header and table cells */
+        th, td {
+            font-size: 200%;
+		border: 1px solid #ccc; /* Add borders to table cells */
+            padding: 8px; /* Add padding for better spacing */
+        }
+
+        /* Style the header cells */
+        th {
+            background-color: #f2f2f2; /* Header background color */
+        }
+
+        /* Remove borders from the first row (header row) */
+        tr:first-child th, tr:first-child td {
+            border-top: none;
+        }
+
+        /* Add a border around the entire table */
+        table {
+            border-collapse: collapse;
+            border: 2px solid #000; /* Adjust border style and color as needed */
+            width: 100%;
+        }
+		
+	.dark-green-text {
             color: darkgreen;
         }
+		
+        /* Align text in the left column to the right */
+        td.left-column {
+            color: darkgreen;
+            text-align: right;
+        }
+
     </style>
 </head>
 <body>
@@ -18,14 +50,14 @@
     <script>
         // Sample data array with URLs and translations
         var dataArray = [
-            { lt: "לבחור ב", url: "206-livchor/", trn: "1. выбирать 2. избирать" },
-            { lt: "הוראה", url: "3924-horaa/", trn: "1. преподавание 2. указ, распоряжение 3. смысл, значение" },
-            { lt: "שינוי", url: "6001-shinuy/", trn: "изменение, перемена" },
+            { pp: "ב", w: "לבחור"  },
+            { pp: "", w: "הוראה"  },
+            { pp: "ב", w: "שינוי" },
         ];
 
         // Sort the dataArray by linkText property
         dataArray.sort(function (a, b) {
-            return a.lt.localeCompare(b.lt);
+            return a.w.localeCompare(b.w);
         });
 
         // Create a table and populate it with data
@@ -36,33 +68,32 @@
             // Create header row
             var headerRow = document.createElement('tr');
             var leftHeaderCell = document.createElement('th');
-            leftHeaderCell.textContent = "מילה";
+            leftHeaderCell.textContent = "מילת יחס";
             var rightHeaderCell = document.createElement('th');
-            rightHeaderCell.textContent = "תרגום";
+            rightHeaderCell.textContent = "מילה";
             headerRow.appendChild(leftHeaderCell);
             headerRow.appendChild(rightHeaderCell);
             table.appendChild(headerRow);
 
             // Populate the table with data
             for (var i = 0; i < dataArray.length; i++) {
-                var data = dataArray[i];
-                var row = document.createElement('tr');
-                var leftCell = document.createElement('td');
-                var rightCell = document.createElement('td');
+					var data = dataArray[i];
+					var row = document.createElement('tr');
+					var leftCell = document.createElement('td');
+					var rightCell = document.createElement('td');
 
-                // Populate left cell with a link
-                var link = document.createElement('a');
-                link.href = "https://www.pealim.com/ru/dict/" + data.url;
-                link.textContent = data.lt;
-                leftCell.appendChild(link);
+					leftCell.textContent = data.pp;
+					leftCell.classList.add('left-column');
 
-                // Apply the dark green text class to the right cell
-                rightCell.textContent = data.trn;
-                rightCell.classList.add('dark-green-text');
+					var link = document.createElement('a');
+					link.href = "https://www.pealim.com/ru/search/?q=" + encodeURIComponent(data.w);
+					link.textContent = data.w;
+					rightCell.appendChild(link);
+					// rightCell.classList.add('left-column');
 
-                row.appendChild(leftCell);
-                row.appendChild(rightCell);
-                table.appendChild(row);
+					row.appendChild(leftCell);
+					row.appendChild(rightCell);
+					table.appendChild(row);
             }
 
             tableContainer.appendChild(table);
